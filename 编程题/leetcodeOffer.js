@@ -46,4 +46,4 @@ node = {
         }
     }
 }
-console.log('reverseList', reverseList(node))
+// console.log('reverseList', reverseList(node))
