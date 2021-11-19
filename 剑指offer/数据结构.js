@@ -61,3 +61,13 @@ cq.deleteHead()
 // cq.deleteHead()
 console.log('cq', cq)
 // console.log('cq.deleteHead()', cq.deleteHead())
+
+// 剑指 Offer 03.数组中重复的数字
+// 使用哈希数据结构方法
+var findRepeatNumber = function (nums) {
+    let numsHash = new Set()
+    for (let num of nums) {
+        if (numsHash.has(num)) return num
+        numsHash.add(num)
+    }
+}
