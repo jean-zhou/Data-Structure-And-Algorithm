@@ -29,3 +29,18 @@ var findRepeatNumber = function (nums) {
 }
 arr = [3, 2, 3, 1, 0, 2, 5, 3]
 console.log('--', findRepeatNumber(arr))
+
+// 剑指 Offer 11. 旋转数组的最小数字
+var minArray = function (numbers) {
+    // 考虑数组越界
+    if (numbers.length === 0) return null
+    let tmp = numbers[0]
+    for (let i = 1; i < numbers.length; i++) {
+        if(tmp <= numbers[i]) {
+            tmp = numbers[i]
+        } else {
+            return numbers[i]
+        }
+    }
+    return numbers[0]
+};
