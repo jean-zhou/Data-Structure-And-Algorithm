@@ -37,10 +37,10 @@ CQueue.prototype.deleteHead = function () {
     //     return this.stackA.pop()
     // }
     // 网上的方法 - 可以通过所有的测试用例
-    if(this.stackB.length) {
+    if (this.stackB.length) {
         return this.stackB.pop()
     } else {
-        while(this.stackA.length) {
+        while (this.stackA.length) {
             this.stackB.push(this.stackA.pop())
         }
         return this.stackB.pop() || -1
@@ -59,7 +59,7 @@ cq.deleteHead()
 cq.deleteHead()
 // cq.deleteHead()
 // cq.deleteHead()
-console.log('cq', cq)
+// console.log('cq', cq)
 // console.log('cq.deleteHead()', cq.deleteHead())
 
 // 剑指 Offer 03.数组中重复的数字
@@ -71,3 +71,29 @@ var findRepeatNumber = function (nums) {
         numsHash.add(num)
     }
 }
+
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+// 剑指 Offer 06. 从尾到头打印链表
+var reversePrint = function (head) {
+    let linkArr = []
+    while (head) {
+        linkArr.push(head.val)
+        head = head.next
+    }
+    return linkArr.reverse()
+};
+// head = [1, 3, 2]
+head = {
+    val: 1,
+    next: {
+        val: 3,
+        next: {
+            val: 2,
+            next: null
+        }
+    }
+}
+console.log(reversePrint(head))
