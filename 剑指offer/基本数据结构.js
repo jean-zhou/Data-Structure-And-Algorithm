@@ -72,10 +72,7 @@ var findRepeatNumber = function (nums) {
     }
 }
 
-function ListNode(val) {
-    this.val = val;
-    this.next = null;
-}
+
 // 剑指 Offer 06. 从尾到头打印链表
 var reversePrint = function (head) {
     let linkArr = []
@@ -96,4 +93,67 @@ head = {
         }
     }
 }
-console.log(reversePrint(head))
+// console.log(reversePrint(head))
+
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+
+// 剑指 Offer 25. 合并两个排序的链表
+var mergeTwoLists1 = function (l1, l2) {
+    let mergeHead
+    if(l1.val < l2.val) {
+        mergeHead = new ListNode(l1.val)
+    } else {
+        mergeHead = new ListNode(l2.val)
+    }
+
+    while(l1 && l2) {
+        if (l1.val < l2.val) {
+            mergeHead.next = l1.next
+            l1 = l1.next
+        } else {
+            mergeHead.next = l2.next
+            l2 = l2.next
+        }
+    }
+    return mergeHead
+};
+var mergeTwoLists = function (l1, l2) {
+    var head = null
+    if(l1 === null || l2 === null) {
+        return l1 || l2
+    }
+    if(l1.val <= l2.val) {
+        head = l1
+        head.next = mergeTwoLists(l1.next, l2)
+    } else{
+        head = l2
+        head.next = mergeTwoLists(l2.next, l1)
+    }
+    return head
+}
+
+head1 = {
+    val: 1,
+    next: {
+        val: 3,
+        next: {
+            val: 2,
+            next: null
+        }
+    }
+}
+head2 = {
+    val: 0,
+    next: {
+        val: 1,
+        next: {
+            val: 5,
+            next: null
+        }
+    }
+}
+
+console.log('mergeTwoLists', mergeTwoLists(head1,head2))
