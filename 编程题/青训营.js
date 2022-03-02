@@ -322,7 +322,7 @@ const bar2 = document.getElementById('progress_bar2');
 function isNum(str) {
   // 把字符串每一个数字切割，然后字符串匹配是否是在 0-9 范围内
   let newStr = str.split('')
-  newStr.forEach( i => {
+  newStr.forEach(i => {
     // if ()
   })
 }
@@ -340,7 +340,7 @@ function isNum4(str) {
   return isFinite(str)  // 判断是有限数值
 }
 
-function isNum3(str){
+function isNum3(str) {
   // 先排除非字符串的情况
   return !/^\s*$/.test(str) && isFinite(str)
 }
@@ -359,5 +359,155 @@ str4 = '-3e3.2'
 str5 = '\t'  // 换行和空格转化为空
 str6 = '\n'
 str7 = '    '
-console.log('isNum6', isNum6(str7))
-console.log('parseFloat', parseFloat(str7) )  // 空字符串 使用  parseFloat 转化为 NaN 
+// console.log('isNum6', isNum6(str7))
+// console.log('parseFloat', parseFloat(str7) )  // 空字符串 使用  parseFloat 转化为 NaN
+
+
+// 36进制加法（字节腾讯面试题）
+function single(k) {
+  console.log('k ---', k);
+  var char_k2 = a.charAt(k);
+  var char_kn2 = map1.get(char_k2);
+  var sum = char_kn2 + temp;
+  if (sum >= 36) {
+    var sum = sum - 36;
+    result.unshift(sum);
+    temp = 1
+  } else {
+    result.unshift(sum);
+    temp = 0;
+  }
+  k--;
+}
+//a,b分别为两个36进制数字的字符串形式
+function add(a, b) {
+  // "1b", "2x"
+  var map1 = new Map([["0", 0], ["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7], [8, 8], ["9", 9], ["a", 10], ["b", 11], ["c", 12], ["d", 13], ["e", 14], ["f", 15], ["g", 16], ["h", 17], ["i", 18], ["j", 19], ["k", 20], ["l", 21], ["m", 22], ["n", 23], ["o", 24], ["p", 25], ["q", 26], ["r", 27], ["s", 28], ["t", 29], ["u", 30], ["v", 31], ["w", 32], ["x", 33], ["y", 34], ["z", 35]])
+  var i = a.length - 1;
+  var j = b.length - 1;
+  console.log('i, j', i, j);
+  if (i < 0 || j < 0) {
+    return null;
+  }
+  var temp = 0;
+  var result = []
+  while (i >= 0 && j >= 0) {
+    //取a,b中的最后一个字符
+    var charA = a.charAt(i);
+    var charB = b.charAt(j);
+    console.log('charA, charB', charA, charB);
+    //在map中找到对应的数字
+    var charA1 = map1.get(charA);
+    var charB1 = map1.get(charB);
+    //相加
+    console.log('temp', temp);
+    var sum = charA1 + charB1 + temp;
+    //如果和大于36，就减去36，进1，如果和小于36，就不进位，用temp来记录是否进位
+    if (sum >= 36) {
+      var index = sum - 36;
+      result.unshift(index);
+      temp = 1;
+    } else {
+      var index = sum;
+      result.unshift(index);
+      temp = 0;
+    }
+    i--;
+    j--;
+  }
+  while (i >= 0) {
+    single(i);
+  }
+  while (j >= 0) {
+    single(j);
+  }
+  var str = result.join("")
+  return str;
+}
+
+function single1(i) {
+  // 单独计算
+
+}
+
+// 36进制加法
+function add1(a, b) {
+  let map1 = new Map([
+    ['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9],
+    ['a', 10], ['b', 11], ['c', 12], ['d', 13], ['e', 14], ['f', 15],
+    ['g', 16], ['h', 17], ['i', 18], ['j', 19], ['k', 20], ['l', 21],
+    ['m', 22], ['n', 23], ['o', 24], ['p', 25], ['q', 26], ['r', 27],
+    ['s', 28], ['t', 29], ['u', 30], ['v', 31], ['w', 32], ['x', 33],
+    ['y', 34], ['z', 35],
+  ])
+  // console.log('map1', map1);
+  let i = a.length - 1;
+  let j = b.length - 1;
+  if (i < 0 || j < 0) {
+    return null;
+  }
+  let temp = 0;
+  let index;
+
+  let result = [];
+  while (i >= 0 && j >= 0) {
+    let aChar = a.charAt(i);
+    let bChar = b.charAt(j);
+    let aNum = map1.get(aChar);
+    let bNum = map1.get(bChar);
+    console.log('aNum, bNum', aNum, bNum);
+    let sum = aNum + bNum + temp;
+    if( sum >= 36) {
+      // 如果相加大于36，进一位
+      index = sum - 36;
+      result.unshift(index);
+      temp = 1;
+    } else {
+      index = sum
+      result.unshift(index);
+      temp = 0;
+    }
+    i--;
+    j--;
+  }
+  if(i >= 0) {
+    single1(i)
+  }
+  let re = result.join('');
+  return re;
+}
+
+// console.log(add("1b", "2x"));
+// console.log(add1("1b", "2x"));
+// console.log(add("cc", "aa"));
+// console.log(add1("cc", "aa"));
+console.log(add("cc", '33'));
+console.log(add1("cc", '33'));
+
+// 青训营考试
+var a = 10;
+function fun() {
+  a = 20;
+  console.log(a);
+  // var a = 30;  —— 如果是重新定义的 a，最后的打印就是 30
+  a = 30;  // —— 如果只是对 a 重新赋值，最后的打印就是30
+  console.log(a);
+}
+fun()
+console.log(a)
+
+
+// 12题
+function foo(some) {
+  console.log(this.a, some);
+  return this.a + some;
+}
+const obj = {
+  a:2,
+};
+const bar = function() {
+  return foo.apply(obj, arguments);
+}
+const b = bar(3);
+console.log(b)
+
